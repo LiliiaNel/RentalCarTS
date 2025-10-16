@@ -8,7 +8,7 @@ const CarDetailsPage = lazy(()=> import ('./pages/CarDetailsPage/CarDetailsPage'
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <Header />

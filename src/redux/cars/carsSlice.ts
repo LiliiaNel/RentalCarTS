@@ -1,22 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { fetchCars, fetchCarById} from "./carsOperations";
+import {Car} from '../../types';
 
+interface CarsState {
+  items: Car[],
+  selectedCar: Car | null, 
+  isLoading: boolean,
+  error: string | null,
+  page: number,
+  totalPages: number,
+  totalCars: number,
+  limit: number,
+};
+
+const initialState: CarsState = {
+  items: [],
+  selectedCar: null, 
+  isLoading: false,
+  error: null,
+  page: 1,
+  totalPages: 0,
+  totalCars: 0,
+  limit: 10,
+}
 
 const carsSlice = createSlice({
   name: "cars",
-  initialState: {
-    items: [],
-    selectedCar: null, 
-    isLoading: false,
-    error: null,
-    page: 1,
-    totalPages: 0,
-    totalCars: 0,
-    limit: 10,
-  },
+  initialState,
   reducers: {
-   
+
   },
   extraReducers: (builder) => {
     builder
@@ -41,7 +53,7 @@ const carsSlice = createSlice({
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
+        state.error = action.error.message ?? "Unknown error";
       })
        .addCase(fetchCarById.pending, (state) => {
         state.isLoading = true;
@@ -54,10 +66,10 @@ const carsSlice = createSlice({
       })
       .addCase(fetchCarById.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload ?? "Unknown error";
       })
   },
 });
 
-export const { clearCars } = carsSlice.actions;
+
 export default carsSlice.reducer;

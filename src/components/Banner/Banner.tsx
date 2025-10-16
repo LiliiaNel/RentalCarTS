@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import css from './Banner.module.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Banner ()  {
+const Banner: FC = () => {
 
     const navigate = useNavigate();
-    const handleClick = () => {
+    const handleClick = ():void => {
         navigate('/catalog');
     };
     return <div className={css.banner}>
@@ -13,3 +14,5 @@ export default function Banner ()  {
         <button className={css.catalogBtn} onClick={handleClick}>View Catalog</button>
         </div>
 }
+
+export default Banner;

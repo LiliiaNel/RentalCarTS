@@ -4,36 +4,35 @@ import FiltersPanel from '../../components/FiltersPanel/FiltersPanel';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Loader from '../../components/Loader/Loader';
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton';
-import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { fetchCars } from '../../redux/cars/carsOperations';
 import { selectAppliedFilters } from '../../redux/filters/filtersSelectors';
 import { selectCarsLoading, selectCarsError, selectCars, selectHasNextPage, selectCurrentPage } from '../../redux/cars/carsSelectors';
 
 
-export default function CatalogPage() {
-  const dispatch = useDispatch();
-  const cars = useSelector(selectCars);
+const CatalogPage: FC = ()=> {
+  const dispatch = useAppDispatch();
+  const cars = useAppSelector(selectCars);
 
-  const isLoading = useSelector(selectCarsLoading);
-  const isError = useSelector(selectCarsError);
+  const isLoading = useAppSelector(selectCarsLoading);
+  const isError = useAppSelector(selectCarsError);
 
-  const appliedFilters = useSelector(selectAppliedFilters);
-  const hasNextPage = useSelector(selectHasNextPage);
-  const currentPage = useSelector(selectCurrentPage);
+  const appliedFilters = useAppSelector(selectAppliedFilters);
+  const hasNextPage = useAppSelector(selectHasNextPage);
+  const currentPage = useAppSelector(selectCurrentPage);
 
-  const handleLoadMore = () => {
+  const handleLoadMore = ():void => {
     if (!hasNextPage || isLoading) return;
-    dispatch(fetchCars({ ...(appliedFilters|| {}), page: currentPage + 1 }));
+    dispatch(fetchCars({ ...(appliedFilters|| {}), page: String(currentPage + 1) }));
   };
-
   
     useEffect(() => {
     dispatch(fetchCars({ ...(appliedFilters || {}), page: 1 }));
   }, [dispatch, appliedFilters]);
 
 
-  const listEndRef = useRef(null);
+  const listEndRef = useRef<HTMLDivElement | null>(null);
 
   const prevPageRef = useRef(currentPage);
 
@@ -61,3 +60,5 @@ export default function CatalogPage() {
     </div>
   );
 }
+
+export default CatalogPage;
