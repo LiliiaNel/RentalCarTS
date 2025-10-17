@@ -1,7 +1,13 @@
+import { FC } from "react";
 import css from './LoadMoreButton.module.css';
 import Loader from '../Loader/Loader';
 
-export default function LoadMoreButton ({ onClick, isLoading }) {
+interface LoadMoreButtonProps {
+  onClick: ()=> void;
+  isLoading: boolean;
+}
+
+const LoadMoreButton:FC <LoadMoreButtonProps> = ({ onClick, isLoading }) => {
     return <div className={css.wrapper}>
       <button 
         onClick={onClick} 
@@ -12,3 +18,5 @@ export default function LoadMoreButton ({ onClick, isLoading }) {
       </button>
     </div>
 }
+
+export default LoadMoreButton;

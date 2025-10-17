@@ -1,29 +1,37 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
+import { FC, MouseEvent } from 'react'
+
 import css from './CarItem.module.css';
 import defaultImg from '../../constants/images';
-import { useNavigate } from "react-router-dom";
-import Icon from "../Icon/Icon";
 import { toggleFavorite, selectFavorites } from "../../redux/favorites/favoritesSlice";
 import { formatNumber } from "../../utils/formatNumber";
-import clsx from "clsx";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import Icon from "../Icon/Icon";
+import { Car } from '../../types';
 
-export default function CarItem({ car }) {
+
+interface CarItemProps {
+    car: Car;
+}
+
+const CarItem: FC<CarItemProps> = ({ car }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const favorites = useSelector(selectFavorites);
+    const dispatch = useAppDispatch();
+    const favorites = useAppSelector(selectFavorites);
     const isFavourite = favorites.includes(car.id);
 
-    const handleClick = () => {
+    const handleReadMOreClick = ():void => {
         navigate(`/catalog/${car.id}`);
     };
 
-    const handleFavoriteClick = (e) => {
-        e.stopPropagation();
+    const handleFavoriteClick = (event: MouseEvent<HTMLButtonElement>):void => {
+        event.stopPropagation();
         dispatch(toggleFavorite(car.id));
     };
 
-    const fullAddress = car.address;
-    const addressParts = fullAddress.split(',').map(part => part.trim());
+
+    const addressParts = car.address.split(',').map(part => part.trim());
     const [city, country] = addressParts.slice(-2);
 
 
@@ -71,9 +79,12 @@ export default function CarItem({ car }) {
                 </div>
             </div>
 
-            <button type="button" className={css.readMoreBtn} onClick={handleClick}>
+            <button type="button" className={css.readMoreBtn} onClick={handleReadMOreClick}>
                 Read more
             </button>
         </div>
     );
 }
+
+
+export default CarItem;

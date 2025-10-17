@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { PulseLoader } from "react-spinners";
 import css from './Loader.module.css'; 
 
-export default function Loader() {
+const Loader:FC = () => {
     return <div className={css.container}>
         <PulseLoader
             color={'#3470FF'}
@@ -11,3 +12,5 @@ export default function Loader() {
         />
     </div>;
 };
+
+export default Loader;

@@ -1,4 +1,5 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { FC } from "react";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import css from './BookingForm.module.css';
 import { userSchema } from '../../validation/userSchema'
 import DatePickerInput from '../DatePickerInput/DatePickerInput';
@@ -6,17 +7,23 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-export default function BookingForm() {
+interface BookingFormValues {
+  name: string;
+  email: string;
+  date: string;
+  comment: string;
+}
 
+const BookingForm:FC = () =>{
 
-  const initialValues = {
+  const initialValues: BookingFormValues = {
     name: "",
     email: "",
     date: "",
     comment: "",
   };
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values:BookingFormValues, { resetForm }: FormikHelpers<BookingFormValues>) => {
     console.log("Booking submitted:", values);
      setTimeout(() => {
       toast.success("Your booking has been successfully submitted!", {
@@ -71,3 +78,5 @@ export default function BookingForm() {
     </>
   );
 }
+
+export default BookingForm;

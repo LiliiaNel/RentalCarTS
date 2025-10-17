@@ -1,7 +1,13 @@
 import css from './CarInfoSections.module.css';
 import Icon from '../Icon/Icon'
+import { FC } from 'react';
+import { Car } from '../../types';
 
-export default function CarInfoSections({ car }) {
+interface CarInfoSectionsProps {
+  car: Car;
+}
+
+const CarInfoSections: FC<CarInfoSectionsProps> = ({ car }) => {
   return (
     <div className={css.infoSections}>
       <div className={css.section}>
@@ -14,7 +20,7 @@ export default function CarInfoSections({ car }) {
       <div className={css.section}>
         <h3>Car Specifications:</h3>
         <ul>
-          <li><Icon name="icon-calendar" className={css.icon} width={16} height={16} /> Year: {car.yea}</li>
+          <li><Icon name="icon-calendar" className={css.icon} width={16} height={16} /> Year: {car.year}</li>
           <li><Icon name="icon-car" className={css.icon} width={16} height={16} />Type: {car.type}</li>
           <li><Icon name="icon-fuel-pump" className={css.icon} width={16} height={16} />Fuel Consumption: {car.fuelConsumption}</li>
           <li><Icon name="icon-gear" className={css.icon} width={16} height={16} />Engine Size: {car.engineSize}</li>
@@ -32,3 +38,6 @@ export default function CarInfoSections({ car }) {
     </div>
   );
 }
+
+
+export default CarInfoSections;

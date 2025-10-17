@@ -1,21 +1,29 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, FC } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useFormikContext } from 'formik';
+import {useFormikContext } from 'formik';
 import { registerLocale } from "react-datepicker";
-import enGB from "date-fns/locale/en-GB";
+import {enGB} from "date-fns/locale/en-GB";
+
 registerLocale("en-GB", enGB);
 
 import css from './DatePickerInput.module.css';
 
-export default function DatePickerInput ({ name, placeholder }) {
+
+interface DatePickerInputProps {
+  name: string;
+  placeholder?: string;
+  className?: string;
+}
+
+const DatePickerInput:FC <DatePickerInputProps> = ({ name, placeholder}) => {
   const [open, setOpen] = useState(false);
-  const containerRef = useRef(null);
-  const { values, setFieldValue } = useFormikContext();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { values, setFieldValue } = useFormikContext<any>();
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
+    const handleClickOutside = (event:MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target instanceof Node ? event.target : null)) {
         setOpen(false);
       }
     };
@@ -26,16 +34,16 @@ export default function DatePickerInput ({ name, placeholder }) {
   }, []);
 
 
-    const formatDateRange = (range) => {
+    const formatDateRange = (range?: [Date, Date]) => {
     if (!range || !range[0]) return "";
-    const d = (date) => {
+    const formatDate = (date: Date): string  => {
       if (!date) return "";
       const day = String(date.getDate()).padStart(2, "0");
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const year = date.getFullYear();
       return `${day}.${month}.${year}`;
     };
-    return range[1] ? `${d(range[0])} - ${d(range[1])}` : d(range[0]);
+    return range[1] ? `${formatDate(range[0])} - ${formatDate(range[1])}` : formatDate(range[0]);
   };
 
 
@@ -50,7 +58,7 @@ export default function DatePickerInput ({ name, placeholder }) {
         className={css.inputField} 
       />
       {open && (
-        <div className={css.container} style={{ position: "absolute", top: "100%", left: 0, zIndex: 9999, overflow: "visible" }} children>
+        <div className={css.container} style={{ position: "absolute", top: "100%", left: 0, zIndex: 9999, overflow: "visible" }}>
            <DatePicker
               selectsRange
               locale="en-GB"
@@ -74,3 +82,6 @@ export default function DatePickerInput ({ name, placeholder }) {
     </div>
   );
 }
+
+
+export default DatePickerInput;

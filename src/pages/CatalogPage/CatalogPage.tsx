@@ -22,13 +22,23 @@ const CatalogPage: FC = ()=> {
   const hasNextPage = useAppSelector(selectHasNextPage);
   const currentPage = useAppSelector(selectCurrentPage);
 
-  const handleLoadMore = ():void => {
+  const handleLoadMore = (): void => {
     if (!hasNextPage || isLoading) return;
-    dispatch(fetchCars({ ...(appliedFilters|| {}), page: String(currentPage + 1) }));
+    const params = {
+    ...(appliedFilters || {}),
+    page: String(currentPage + 1),
+    limit: 10,
+    };
+    dispatch(fetchCars(params));
   };
-  
-    useEffect(() => {
-    dispatch(fetchCars({ ...(appliedFilters || {}), page: 1 }));
+
+  useEffect(() => {
+    const params = {
+    ...(appliedFilters || {}),
+    page: "1",
+    limit: 10,
+    };
+    dispatch(fetchCars(params));
   }, [dispatch, appliedFilters]);
 
 

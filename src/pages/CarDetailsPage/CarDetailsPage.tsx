@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, FC } from "react";
 import { useParams } from "react-router-dom";
 import { selectCarsLoading, selectCarsError, selectSelectedCar } from '../../redux/cars/carsSelectors';
 import { fetchCarById } from "../../redux/cars/carsOperations";
@@ -13,14 +12,15 @@ import defaultImg from "../../constants/images";
 import { shortId } from "../../utils/shortId";
 import { formatNumber } from "../../utils/formatNumber";
 import Icon from '../../components/Icon/Icon'
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 
-export default function CarDetailsPage() {
+const CarDetailsPage:FC = () => {
 
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const car = useSelector(selectSelectedCar);
-    const loader = useSelector(selectCarsLoading);
-    const isError = useSelector(selectCarsError);
+    const { id } = useParams<{ id: string }>();
+    const dispatch = useAppDispatch();
+    const car = useAppSelector(selectSelectedCar);
+    const isLoading = useAppSelector(selectCarsLoading);
+    const isError = useAppSelector(selectCarsError);
 
     useEffect(() => {
         if (id) {
@@ -30,11 +30,11 @@ export default function CarDetailsPage() {
 
 
     const imageUrl = car?.img || defaultImg;
-    const isCarReady = !loader && !isError && car;
+    const isCarReady = !isLoading && !isError && car;
 
     return (
         <div className={css.container}>
-            {loader && <Loader />}
+            {isLoading && <Loader />}
             {isError && <NotFoundPage />}
             {isCarReady && (<>
                 <div className={css.imgFormCover}>
@@ -61,3 +61,5 @@ export default function CarDetailsPage() {
         </div>
     );
 }
+
+export default CarDetailsPage;
