@@ -19,11 +19,6 @@ export const selectTotalCars = (state:RootState):number => state.cars.totalCars;
 export const selectHasNextPage = (state:RootState):boolean => state.cars.page < state.cars.totalPages;
 
 
-// Memoized selectors
-export const selectBrands = createSelector([selectCars], (cars) =>
-  [...new Set(cars.map((car) => car.brand))].sort()
-);
-
 export const selectPrices = createSelector([selectCars], (cars) =>
   [...new Set(cars.map((car) => Number(car.rentalPrice)))]
     .sort((priceA, priceB) => priceA - priceB)

@@ -17,3 +17,11 @@ export const selectFilteredCars = createSelector(
 );
 
 export const selectAppliedFilters = (state:RootState) => state.filters.applied;
+
+export const selectBrands = (state: RootState) => state.filters.brands;
+
+export const selectBrandsLoading = (state: RootState) =>
+  state.filters.brandsLoading;
+
+export const selectBrandsError = (state: RootState) =>
+  state.filters.brandsError;

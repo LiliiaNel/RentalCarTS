@@ -1,23 +1,14 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-import type { RootState, AppDispatch } from "../store";
 import type { Car, CarsResponse, CarFilters } from "../../types";
+import { createAppAsyncThunk } from "../createAppAsyncThunk";
 
-const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  state: RootState;
-  dispatch: AppDispatch;
-  rejectValue: string;
-}>();
 
 export const fetchCars = createAppAsyncThunk<CarsResponse, CarFilters>(
   "cars/fetchCars",
   async (filters, { rejectWithValue }) => {
     try {
-      // const params = {limit: 10, ...filters };
       const params: { page?: string } & CarFilters & { limit: number } = { limit: 10, ...filters };
        if (!params.page) params.page = "1";
-
       const { data } = await axios.get<CarsResponse>("https://car-rental-api.goit.global/cars", { params });
       return data;
     } catch (error) {

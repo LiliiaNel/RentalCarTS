@@ -18,7 +18,7 @@ export interface Car {
 }
 
 export interface CarFilters {
-  brand?: string;
+  selectedBrand?: string;
   rentalPrice?: string;
   minMileage?: string;
   maxMileage?: string;
