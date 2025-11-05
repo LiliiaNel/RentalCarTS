@@ -7,7 +7,7 @@ export const selectFilteredCars = createSelector(
   [(state: RootState) => state.cars.items, selectFilters],
   (cars, filters) => {
     return cars.filter(car => {
-      const matchBrand = filters.brand ? car.brand === filters.brand : true;
+      const matchBrand = filters.selectedBrand ? car.brand === filters.selectedBrand : true;
       const matchPrice = filters.rentalPrice ? car.rentalPrice === filters.rentalPrice : true;
       const matchMileageFrom = filters.minMileage ? car.mileage >= Number(filters.minMileage) : true;
       const matchMileageTo = filters.maxMileage ? car.mileage <= Number(filters.maxMileage) : true;

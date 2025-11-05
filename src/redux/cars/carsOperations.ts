@@ -10,7 +10,9 @@ export const fetchCars = createAppAsyncThunk<CarsResponse, CarFilters>(
       const params: { page?: string } & CarFilters & { limit: number } = { limit: 10, ...filters };
        if (!params.page) params.page = "1";
       const { data } = await axios.get<CarsResponse>("https://car-rental-api.goit.global/cars", { params });
+            console.log('Fetched cars data:', data);
       return data;
+
     } catch (error) {
       if (axios.isAxiosError(error) && error.message) {
         return rejectWithValue(error.message);

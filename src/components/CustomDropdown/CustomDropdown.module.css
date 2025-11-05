@@ -1,0 +1,85 @@
+.wrapper { 
+    position: relative; 
+    max-width: 204px; 
+    text-align: left;
+ }
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+.wrapper { 
+    max-width: 270px; 
+}
+}
+
+.label { 
+    font-weight: 400; 
+    font-size: 12px; 
+    color: #8d929a; 
+    margin-bottom: 8px; 
+}
+
+/* React Select library classes */
+
+.chevronButton {
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  outline: none;
+}
+.chevronButton:hover,
+.chevronButton:active {
+  background-color: #dadde1;
+  border-radius: 50%;
+  outline: none;
+}
+
+.arrowWrap {
+  display: inline-block;
+  transition: transform 300ms ease;
+  transform-origin: center center;
+  will-change: transform;
+}
+.rotated {
+  transform: scaleY(-1);
+}
+
+.arrowIcon {
+  display: block;
+  transform-box: fill-box;
+}
+
+.clearIndicator {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+
+}
+.clearButton {
+  background: transparent;
+  border: none;
+  color: #8d929a;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+.clearButton:hover { 
+  color: #101828; 
+}
+
+
+.custom__menu-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom__menu-list::-webkit-scrollbar-thumb {
+  background: #dadde1;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
