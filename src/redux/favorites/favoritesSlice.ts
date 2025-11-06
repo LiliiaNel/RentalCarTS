@@ -13,14 +13,13 @@ const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    toggleFavorite: (state,  action: PayloadAction<string>) => {
-      const carId = action.payload;
-      if (state.items.includes(carId)) {
-        state.items = state.items.filter(id => id !== carId);
-      } else {
-        state.items.push(carId);
-      }
-    },
+     toggleFavorite: (state, action: PayloadAction<string>) => {
+      const id = String(action.payload);
+      const index = state.items.findIndex(i => i === id);
+      if (index !== -1) {state.items.splice(index, 1);}
+      else {state.items.push(id);}
+      state.items = state.items.map(i => String(i));
+    }
   },
 });
 

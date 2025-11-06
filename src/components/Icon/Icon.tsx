@@ -12,7 +12,6 @@ interface IconProps {
 
 const Icon:FC <IconProps> = ({ name, width, height, className, viewBox, preserveAspectRatio = "xMidYMid meet" }) => {
 
-  const href = `/icons/svg-sprite.svg#${name}`;
 
   return  (<svg
       className={className}
@@ -22,7 +21,7 @@ const Icon:FC <IconProps> = ({ name, width, height, className, viewBox, preserve
       preserveAspectRatio={preserveAspectRatio}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <use href={href} xlinkHref={href} />
+      <use xlinkHref={`/icons/svg-sprite.svg#${name}`}  />
     </svg>)
 };
 

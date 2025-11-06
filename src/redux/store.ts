@@ -17,6 +17,7 @@ const favoritesPersistConfig = {
   storage,
 };
 
+
 const persistedFavoritesReducer = persistReducer(favoritesPersistConfig, favoritesReducer);
 
   export const store = configureStore({
