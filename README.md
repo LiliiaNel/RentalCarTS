@@ -1,7 +1,7 @@
 # 🚗 Car Rental App
 
 A demo web application for browsing, filtering, and booking cars.
-This project is an imitation created for educational purposes and is not a real car rental service.
+This project was built as part of a learning process to practice TS, React, Redux, and API integration.
 
 ## ✨ Features
 
@@ -14,12 +14,7 @@ This project is an imitation created for educational purposes and is not a real 
 📸 Car gallery with detailed view
 
 ## 🛠 Tech Stack
-React | Redux Toolkit | Axios | Formik + Yup | React Toastify | CSS Modules
+TypeScript | React | Redux Toolkit | React Persist | Axios | Formik + Yup | React Toastify | React Select| React Datepicker| CSS Modules
 
 🔗 API
 Car Rental API documentation: https://car-rental-api.goit.global/api-docs/#/
-
-
-
-👩‍💻 Author
-Developed by  Liliia Szivak
