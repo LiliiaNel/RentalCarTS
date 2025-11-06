@@ -3,7 +3,7 @@ import {CarFilters} from '../../types';
 import { fetchBrands } from "./filtersOperations";
 
 interface FiltersState {
-    selectedBrand: string;
+    brand: string;
     brands: string[];
     brandsLoading: boolean;
     brandsError: string | null;
@@ -14,7 +14,7 @@ interface FiltersState {
 };
 
 const initialState: FiltersState = {
-  selectedBrand: "",
+  brand: "",
   rentalPrice: "",
   minMileage: "",
   maxMileage: "",
@@ -28,19 +28,19 @@ const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setBrand: (state, action: PayloadAction<string>) => { state.selectedBrand = action.payload; },
+    setBrand: (state, action: PayloadAction<string>) => { state.brand = action.payload; },
     setRentalPrice: (state, action: PayloadAction<string>) => { state.rentalPrice = action.payload; },
     setMinMileage: (state, action: PayloadAction<string>) => { state.minMileage = action.payload; },
     setMaxMileage: (state, action: PayloadAction<string>) => { state.maxMileage = action.payload; },
     resetFilters: (state) => {
-      state.selectedBrand = "";
+      state.brand = "";
       state.rentalPrice = "";
       state.minMileage = "";
       state.maxMileage = "";
     },
     applyFilters: (state) => {
       state.applied = {
-        selectedBrand: state.selectedBrand,
+        brand: state.brand,
         rentalPrice: state.rentalPrice,
         minMileage: state.minMileage,
         maxMileage: state.maxMileage,

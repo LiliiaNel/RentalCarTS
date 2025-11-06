@@ -17,9 +17,3 @@ export const selectTotalPages = (state:RootState):number => state.cars.totalPage
 export const selectTotalCars = (state:RootState):number => state.cars.totalCars;
 
 export const selectHasNextPage = (state:RootState):boolean => state.cars.page < state.cars.totalPages;
-
-
-export const selectPrices = createSelector([selectCars], (cars) =>
-  [...new Set(cars.map((car) => Number(car.rentalPrice)))]
-    .sort((priceA, priceB) => priceA - priceB)
-);

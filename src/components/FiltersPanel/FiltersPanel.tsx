@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { selectFilters, selectBrands, selectBrandsLoading } from "../../redux/filters/filtersSelectors";
 import { setBrand, setRentalPrice, setMinMileage, setMaxMileage, applyFilters } from "../../redux/filters/filtersSlice";
 import { fetchBrands } from "../../redux/filters/filtersOperations";
-import { selectPrices } from "../../redux/cars/carsSelectors";
+import AVAILABLE_PRICES from "../../constants/prices";
 import CustomDropdown from "../CustomDropdown/CustomDropdown";
 import MileageFilter from "../MileageFilter/MileageFilter";
 import css from './FiltersPanel.module.css'
@@ -12,11 +12,9 @@ import css from './FiltersPanel.module.css'
 const FiltersPanel: FC = () => {
 
   const dispatch = useAppDispatch();
-  const { selectedBrand, rentalPrice, minMileage, maxMileage } = useAppSelector(selectFilters);
+  const { brand, rentalPrice, minMileage, maxMileage } = useAppSelector(selectFilters);
   const brands = useAppSelector(selectBrands);
   const brandsLoading = useAppSelector(selectBrandsLoading);
-  const prices = useAppSelector(selectPrices);
-  console.log('Available prices:', prices);
 
   useEffect(() => {
     if (!brands.length && !brandsLoading) {
@@ -53,7 +51,7 @@ const FiltersPanel: FC = () => {
           <CustomDropdown
             label="Car brand"
             placeholder="Choose a brand"
-            value={selectedBrand}
+            value={brand}
             options={brands}
             onChange={handleBrandChange}
             onClear={handleClearBrand}
@@ -63,7 +61,7 @@ const FiltersPanel: FC = () => {
             label="Price / 1hour"
             placeholder="Choose a price"
             value={rentalPrice}
-            options={prices.map(String)}
+            options={AVAILABLE_PRICES.map(String)}
             formatOptionLabel={(option) => `To $${option}`}
             onChange={handleRentalPriceChange}
             onClear={handleClearPrice}
